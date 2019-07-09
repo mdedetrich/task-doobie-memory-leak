@@ -43,7 +43,7 @@ object Main extends App with StrictLogging {
         }
       },
       0,
-      16,
+      2,
       TimeUnit.MILLISECONDS
     )
   }

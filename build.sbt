@@ -68,5 +68,6 @@ javaOptions in run in ThisBuild ++= Seq(
   "-XX:+ScavengeBeforeFullGC",
   "-XX:+CMSScavengeBeforeRemark",
   "-XX:+UnlockExperimentalVMOptions",
-  "-XX:+UseCGroupMemoryLimitForHeap"
+  "-XX:+UseCGroupMemoryLimitForHeap",
+  "-Xms64M"
 )

@@ -21,7 +21,7 @@ case class Tx()(implicit scheduler: Scheduler) {
     hikariConfig.setPassword("mysecretpassword")
 
     hikariConfig.setLeakDetectionThreshold(7000)
-    hikariConfig.setMaximumPoolSize(10)
+    hikariConfig.setMaximumPoolSize(50)
     new hikari.HikariDataSource(hikariConfig)
   }
 
