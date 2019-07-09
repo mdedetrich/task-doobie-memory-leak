@@ -1,4 +1,4 @@
-import java.util.concurrent.TimeUnit
+import java.util.concurrent._
 
 import com.typesafe.scalalogging.StrictLogging
 import io.getquill.{PostgresMonixJdbcContext, SnakeCase}
@@ -28,11 +28,9 @@ object Main extends App with StrictLogging {
     } yield ()
   }
 
-  def simulate() =
-    scheduler.scheduleWithFixedDelay(
-      0,
-      16,
-      TimeUnit.MILLISECONDS,
+  def simulate() = {
+    val service = Executors.newSingleThreadScheduledExecutor
+    service.scheduleAtFixedRate(
       () => {
         val task = for {
           _ <- baseTransaction
@@ -44,8 +42,12 @@ object Main extends App with StrictLogging {
           case Success(_) => logger.info("Transaction complete!")
           case Failure(t) => logger.error("error", t)
         }
-      }
+      },
+      0,
+      16,
+      TimeUnit.MILLISECONDS
     )
+  }
 
   val amount = queries.migrate()
   logger.info(s"Migrate amount = $amount")
